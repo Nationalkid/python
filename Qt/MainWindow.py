@@ -1,10 +1,11 @@
 import sys
 from PyQt5.QtWidgets import QLabel, QWidget, QPushButton,\
     QDesktopWidget, QInputDialog, QFileDialog, QComboBox, \
-    QVBoxLayout,QHBoxLayout, QFormLayout, QStatusBar, QMainWindow,QTableWidgetItem, QTableWidget
+    QVBoxLayout,QHBoxLayout, QFormLayout, QStatusBar, QMainWindow
 
 from PyQt5.QtCore import QFileInfo,qDebug,QObject,pyqtSignal
 from Qt.CreateTable import CreateTable
+from xlrd import open_workbook
 
 # Class definition
 class MainWindow(QMainWindow):
@@ -42,6 +43,7 @@ class MainWindow(QMainWindow):
         #table = CreateTable()
         btnOpen.setStatusTip('Open the excel File')
         btnOpen.clicked.connect(self.showOpenFileDialog)
+        #btnOpen.clicked.connect(self.showTable)
         btnQuit.clicked.connect(self.quitApp)
         #btnTest.clicked.connect(self.showTable)
 
@@ -66,13 +68,10 @@ class MainWindow(QMainWindow):
         self.mainLayout.addRow(self.combosLayout)
         self.mainLayout.addRow(self.buttonsLayout)
 
-        # Seting layout as the layout for the window
+        # Creating a widget (for cental widget) and set the layout for the window
         self.central_widget = QWidget()
         self.central_widget.setLayout(self.mainLayout)
         self.setCentralWidget(self.central_widget)
-
-    def showTable(self):
-        self.table = CreateTable()
 
     def center(self):
         qr = self.frameGeometry()
@@ -81,15 +80,40 @@ class MainWindow(QMainWindow):
         self.move(qr.topLeft())
 
     def showOpenFileDialog(self):
-        fileName = QFileDialog.getOpenFileName(self, 'Open file',
-         'c:\\',"Excel files (*.xls *.xlsx)")
-        if fileName[0]:
-            file = open(fileName[0], 'r')
-            print("foi" + fileName[0])
-            #path = QFileInfo(fileName[0]).absoluteFilePath()
-            self.statusBar().showMessage("Loaded file : " + fileName[0])
-            self.table = CreateTable()
-            #self.table.createTable(fileName[0])
+        #For static function call
+        filename = QFileDialog.getOpenFileName(self, 'Open file',
+         'c:\\Users\\Elena Arsevska\\Dropbox\\R\\',"Excel files (*.xls *.xlsx)")
+        filepath = filename[0]
+        print(filepath)
+        if filename:
+            file = open(filepath, 'r')
+            print("Filename  : " + filepath)
+            self.statusBar().showMessage("Loaded file : " + filepath)
+            workbook = open_workbook(filepath)
+            '''
+            for sheet in workbook.sheets():
+                print('Sheet:' + sheet.name)
+                values = []
+                for row in range(sheet.nrows):
+                    col_value = []
+                    for col in range(sheet.ncols):
+                        value = sheet.cell(row, col).value
+                        try:
+                            value = str(int(value))
+                        except:
+                            pass
+                        col_value.append(value)
+                        values.append(col_value)
+            print (values)
+            '''
+        self.showTable(workbook)
+
+    def showTable(self, workbook):
+        self.table = CreateTable()
+        self.table.fillTable(workbook)
+        self.table.centerTable()
+        self.table.show()
+
 
     # Only the active windows closes, not the whole program
     def quitApp(self):

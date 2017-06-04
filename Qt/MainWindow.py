@@ -29,23 +29,23 @@ class MainWindow(QMainWindow):
         cmbLandScape = QComboBox()
         cmbServices.addItems(self.services)
         cmbLandScape.addItems(self.land_use)
-        cmbServices.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLength)
-        cmbLandScape.setSizeAdjustPolicy(QComboBox.AdjustToMinimumContentsLength)
+        cmbServices.setSizeAdjustPolicy(QComboBox.AdjustToContents)
+        cmbLandScape.setSizeAdjustPolicy(QComboBox.AdjustToContents)
 
         # Defining labels:
         lblServices = QLabel('Select a service')
         lblLandScape = QLabel('Select a land scape')
 
         # Button definition
-        btnOpen = QPushButton('Open', self)
-        btnQuit = QPushButton('Quit', self)
-        btnTest = QPushButton('Test', self)
-        #table = CreateTable()
-        btnOpen.setStatusTip('Open the excel File')
-        btnOpen.clicked.connect(self.showOpenFileDialog)
-        #btnOpen.clicked.connect(self.showTable)
-        btnQuit.clicked.connect(self.quitApp)
-        #btnTest.clicked.connect(self.showTable)
+        self.btnOpen = QPushButton('Open', self)
+        self.btnQuit = QPushButton('Quit', self)
+        self.btnRun = QPushButton('Run', self)
+        self.btnRun.setDisabled(True)
+
+        # Connecting slots
+        self.btnOpen.setStatusTip('Open the excel File')
+        self.btnOpen.clicked.connect(self.showOpenFileDialog)
+        self.btnQuit.clicked.connect(self.quitApp)
 
         # Defining table widget
         # Form layout for combos and labels
@@ -54,17 +54,18 @@ class MainWindow(QMainWindow):
         self.combosLayout.addWidget(cmbServices)
         self.combosLayout.addWidget(lblLandScape)
         self.combosLayout.addWidget(cmbLandScape)
+        self.combosLayout.addStretch()
 
         #Horizontal layout for buttons
         self.buttonsLayout = QHBoxLayout()
-        self.buttonsLayout.addWidget(btnOpen)
-        self.buttonsLayout.addWidget(btnQuit)
-        self.buttonsLayout.addWidget(btnTest)
+        self.buttonsLayout.addWidget(self.btnOpen)
+        self.buttonsLayout.addWidget(self.btnQuit)
+        self.buttonsLayout.addWidget(self.btnRun)
         self.buttonsLayout.addStretch()
 
         #Setting some space and putting layouts together
         self.mainLayout = QFormLayout()
-        self.mainLayout.setContentsMargins(20, 20, 150, 150)
+        self.mainLayout.setContentsMargins(20, 20, 250, 150)
         self.mainLayout.addRow(self.combosLayout)
         self.mainLayout.addRow(self.buttonsLayout)
 
@@ -81,34 +82,25 @@ class MainWindow(QMainWindow):
 
     def showOpenFileDialog(self):
         #For static function call
-        filename = QFileDialog.getOpenFileName(self, 'Open file',
+        #fileDialog = QFileDialog()
+        filename = QFileDialog.getOpenFileName(None, 'Open file',
          'c:\\Users\\Elena Arsevska\\Dropbox\\R\\',"Excel files (*.xls *.xlsx)")
-        filepath = filename[0]
-        print(filepath)
-        if filename:
+        if filename[0]:
+            filepath = filename[0]
             file = open(filepath, 'r')
             print("Filename  : " + filepath)
             self.statusBar().showMessage("Loaded file : " + filepath)
             workbook = open_workbook(filepath)
-            '''
-            for sheet in workbook.sheets():
-                print('Sheet:' + sheet.name)
-                values = []
-                for row in range(sheet.nrows):
-                    col_value = []
-                    for col in range(sheet.ncols):
-                        value = sheet.cell(row, col).value
-                        try:
-                            value = str(int(value))
-                        except:
-                            pass
-                        col_value.append(value)
-                        values.append(col_value)
-            print (values)
-            '''
-        self.showTable(workbook)
+            self.showTable(workbook)
+            self.btnRun.setEnabled(True)
+        if not filename[0]:
+            print("empty")
+            self.statusBar().showMessage("Ready")
+
+
 
     def showTable(self, workbook):
+
         self.table = CreateTable()
         self.table.fillTable(workbook)
         self.table.centerTable()

@@ -1,13 +1,21 @@
-extensions.append('sphinx.ext.pngmath')
+H1 -- Top of Page Header
+************************
+There should only be one of these per page and this will also -- when
+converting to pdf -- be used for the chapters.
 
-# Python Scripts
+H2 -- Page Sections
+===================
 
-1. Data : csv files
-2. Output: Image and html (plotly) outputs
-3. Python : Python scripts
+H3 -- Subsection
+----------------
 
-test
+H4 -- Subsubsection
++++++++++++++++++++
 
-.. math::
+Here is something I want to talk about::
 
-    n_{\mathrm{offset}} = \sum_{k=0}^{N-1} s_k n_k
+    def my_fn(foo, bar=True):
+        """A really useful function.
+
+        Returns None
+        """

@@ -8,9 +8,9 @@ interactive Likert scale plot using the Plotly library
 An example using the likert scale
 ----------------------------------
 
-The example is based on a small sample of data of Villanueva's thesis.
-The input data was produced after qualitative survey to understand people's perception on
-how much they value ecosystem services towards some landscapes.
+The GUI is based on a small sample of Villanueva's dissertation data.
+The excel file (sample.xlsx) is a subset of qualitative data survey that aimed to understand people's perception on
+how much they value ecosystem services towards landscapes.
 
 The ecosystem services were the following :
 
@@ -21,12 +21,12 @@ The ecosystem services were the following :
 - Air quality
 - Scenic beauty
 
-With four possible land scapes :
+With four possible landscapes :
 
 - Agriculture
 - Forest
 - Settlement
 - Grassland
 
-Through the GUI the user can select his data, the ecosystem service and the land scape. Additionally,
-people are grouped by gender, age, age class, education and activity.
+Through the GUI, the user can select the data (excel file), the ecosystem service and the landscape. Additionally,
+people can be grouped by gender, age, age class, education or activity.

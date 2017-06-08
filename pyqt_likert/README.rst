@@ -16,10 +16,10 @@ The ecosystem services were the following :
 
 - Food
 - Wood
-- Water_supply
+- Water supply
 - Regulation
-- Air_quality
-- Scenic_beauty
+- Air quality
+- Scenic beauty
 
 With four possible land scapes :
 

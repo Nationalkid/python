@@ -6,7 +6,7 @@ init_notebook_mode(connected=True)
 
 df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv')
 df
-df1 = pd.read_csv('C:/Users/Elena Arsevska/Dropbox/Savsnet_main_work/Notebooks/map.csv',encoding = "ISO-8859-1")
+df1 = pd.read_csv('C:/Users/Elena Arsevska/Dropbox/Savsnet_main_work/Notebooks/Cloroplet/map.csv',encoding = "ISO-8859-1")
 df1
 py.sign_in('PauloPimenta', 'dehPQ8xFFpN0VrkIVT9i')
 
@@ -45,5 +45,5 @@ layout = dict(
 
 fig = dict( data=data, layout=layout )
 #py.plot( fig, validate=False, filename='pet_travel_map' )
-plotly.offline.iplot(fig,filename='test')
+plotly.offline.plot(fig,filename='test')
 

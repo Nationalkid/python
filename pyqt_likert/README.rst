@@ -29,4 +29,4 @@ With four possible land scapes :
 - Grassland
 
 Through the GUI the user can select his data, the ecosystem service and the land scape. Additionally,
-people are group people by gender, age, age class, education and activity.
+people are grouped by gender, age, age class, education and activity.

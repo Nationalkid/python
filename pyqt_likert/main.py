@@ -1,7 +1,6 @@
 import sys
 from PyQt5.QtWidgets import  QApplication
-from Qt.MainWindow import MainWindow
-#from Qt.CreateTable import CreateTable
+from pyqt_likert.MainWindow import MainWindow
 
 if __name__ == '__main__':
     qtApp = QApplication(sys.argv)

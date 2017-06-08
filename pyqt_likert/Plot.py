@@ -37,7 +37,6 @@ def initLikert(serviceIndex,landScapeIndex,socialIndex,filePathName):
     services = ['food', 'wood', 'water_supply', 'regulation', 'air_quality', 'scenic_beauty']
     likert_values = ['No data', 'Very low', 'Low', 'Medium', 'High', 'Very high']
 
-    # Test
     # Creating vectors of selected variables
     land_scape = [land_scape[landScapeIndex]]
     land_scape_name = land_scape[0]
